@@ -1,0 +1,12 @@
+{% extends 'twitterapp/base.html' %}
+{% block content %}
+    {% if user.is_authenticated %}
+        Hi {{ user.username }}
+    {% else %}
+        <form method="POST" action={% url 'login' %}>
+             {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Login" />
+        </form>
+    {% endif %}
+{% endblock %}

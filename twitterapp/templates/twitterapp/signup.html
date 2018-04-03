@@ -1,0 +1,17 @@
+{% extends 'twitterapp/base.html' %}
+{% block content %}
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        {% if error != "" %}
+            {% if error == "u" %}
+                Username already in use
+            {% elif error == "e" %}
+                Email already in use
+            {% elif error == "eu" %}
+                Both email and username already in use
+            {% endif %}
+        {% endif %}
+        <input type="submit" value="Sign up" />
+    </form>
+{% endblock %}
