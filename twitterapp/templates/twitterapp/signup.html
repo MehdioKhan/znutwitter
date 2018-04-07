@@ -1,17 +1,72 @@
 {% extends 'twitterapp/base.html' %}
+{% load widget_tweaks %}
 {% block content %}
-    <form method="POST">
-        {% csrf_token %}
-        {{ form.as_p }}
-        {% if error != "" %}
-            {% if error == "u" %}
-                Username already in use
-            {% elif error == "e" %}
-                Email already in use
-            {% elif error == "eu" %}
-                Both email and username already in use
-            {% endif %}
-        {% endif %}
-        <input type="submit" value="Sign up" />
-    </form>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h2 class="panel-title">ثبت نام</h2>
+	    </div>
+        <div class="panel-body">
+            <center>
+                <form method="POST">
+                    {% csrf_token %}
+                    <table>
+                        <tr>
+                            <td>نام</td>
+                            <td>{{ form.first_name }}</td>
+                            <td>الزامی</td>
+                        </tr>
+                        <tr>
+                            <td>نام خانوادگی</td>
+                            <td>{{ form.last_name }}</td>
+                            <td>الزامی</td>
+                        </tr>
+                        <tr>
+                            <td>نام کاربری</td>
+                            <td>{{ form.username }}</td>
+                            <td>الزامی. 150 کاراکتر یا کمتر. فقط شامل حروف، اعداد، و علامات @/./+/-/_</td>
+                        </tr>
+                        <tr>
+                            <td>کلمه ی عبور</td>
+                            <td>{{ form.password1|add_class:'form-control' }}</td>
+                        </tr>
+                        <tr>
+                                <ul>
+                                    <li>رمز عبور شما نمی‌تواند شبیه سایر اطلاعات شخصی شما باشد.</li>
+                                    <li>رمز عبور شما می‌بایست حداقل از 8 حرف تشکیل شده باشد.</li>
+                                    <li>رمز شما نمی تواند از عبارات معروف باشد.</li>
+                                    <li>رمز شما نمی تواند کلا عدد باشد.</li>
+                                </ul>
+                        </tr>
+                        <tr>
+                            <td>تکرار کلمه ی عبور</td>
+                            <td>{{ form.password2|add_class:'form-control' }}</td>
+                            <td>برای تائید، رمز عبور قبلی را وارد کنید.</td>
+                        </tr>
+                        <tr>
+                            <td>ایمیل</td>
+                            <td>{{ form.email }}</td>
+                            <td>الزامی</td>
+                        </tr>
+                        <tr>
+                        </tr>
+                        {% if error != "" %}
+                            <tr>
+                                <td id="error">خطا</td>
+                                <td>
+                                    {% if error == "u" %}
+                                        Username already in use
+                                    {% elif error == "e" %}
+                                        Email already in use
+                                    {% elif error == "eu" %}
+                                        Both email and username already in use
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% endif %}
+                    </table>
+                    <input class="btn btn-primary" type="submit" value="ثبت نام" />
+                </form>
+            </center>
+        </div>
+    </div>
 {% endblock %}

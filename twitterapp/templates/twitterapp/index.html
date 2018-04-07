@@ -1,9 +1,80 @@
 {% extends 'twitterapp/base.html' %}
 {% block content %}
     {% if user.is_authenticated %}
-        Hi {{ user.username }}
+         <!-- new post start -->
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h2 class="panel-title"><center>پست جدید</center></h2>
+          </div>
+            <div class="panel-body">
+                <form method="POST">
+                    {% csrf_token %}
+                  {{ form.post }}<br>
+                  <input type="submit" value="ارسال" class="btn btn-primary" />
+                </form>
+            </div>
+        </div>
+        <!-- new post end -->
+        <h1>پست های اخیر</h1>
+        <hr>
+        <!-- latest posts start -->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h2 class="panel-title"></h2>
+            </div>
+            <div class="panel-body">
+                {% if posts %}
+                    {% for p in posts %}
+                        <table>
+                            <tr>
+                                <td>{{ p.user.username }}</td>
+                            </tr>
+                            <tr>
+                                <td>{{ p.post }}</td>
+                            </tr>
+                            <tr>
+                                <td>{{ p.date }}</td>
+                            </tr>
+                            <tr>
+                                <td>{{ p.likes }}<a class="navbar-brand" href="#"><span class="glyphicon glyphicon-heart"></span></a></td>
+                            </tr>
+                        </table>
+                        <hr>
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </div>
         <a href={% url 'logout' %}>Logout</a>
     {% else %}
-        <a href={% url 'login' %}>Login</a> or <a href={% url 'signup' %}>Sign up</a>
+            <h1>پست های اخیر</h1>
+            <hr>
+            <!-- latest posts start -->
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h2 class="panel-title"></h2>
+                </div>
+                <div class="panel-body">
+                    {% if posts %}
+                        {% for p in posts %}
+                            <table>
+                                <tr>
+                                    <td>{{ p.user.username }}</td>
+                                </tr>
+                                <tr>
+                                    <td>{{ p.post }}</td>
+                                </tr>
+                                <tr>
+                                    <td>{{ p.date }}</td>
+                                </tr>
+                                <tr>
+                                    <td>{{ p.likes }}<a class="navbar-brand" href="#"><span class="glyphicon glyphicon-heart"></span></a></td>
+                                </tr>
+                            </table>
+                            <hr>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            </div>
     {% endif %}
 {% endblock %}
+{% block title %}توئیتر دانشگاه زنجان - صفحه ی اصلی{% endblock %}
