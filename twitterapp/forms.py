@@ -1,7 +1,8 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm,PasswordChangeForm
 from django.contrib.auth.models import User
-from .models import Feed
+from .models import Feed,Profile
+
 
 class SignupUserForm(UserCreationForm):
 
@@ -11,6 +12,7 @@ class SignupUserForm(UserCreationForm):
                                 widget=forms.TextInput(attrs={'class' : 'form-control',}))
     email = forms.EmailField(max_length=254,min_length=6,required=True,help_text='الزامی',
                              widget=forms.TextInput(attrs={'class' : 'form-control',}))
+
     class Meta:
         model = User
         fields = ('first_name','last_name','username','password1','password2','email',)
@@ -20,7 +22,7 @@ class SignupUserForm(UserCreationForm):
             'password2': forms.PasswordInput(attrs={'class':'form-control',}),
         }
 
-    def claen(self):
+    def clean(self):
         cleaned_date = super(SignupUserForm,self).clean()
         first_name =  cleaned_date.get('first_name')
         last_name = cleaned_date.get('last_name')
@@ -30,6 +32,7 @@ class SignupUserForm(UserCreationForm):
         password2 = cleaned_date.get('password2')
         if not first_name and not last_name and not email and not username and not password1 and not password2:
             raise forms.ValidationError('هیچ یک از فیلد ها نمیتوانند خالی باشند')
+
 
 class FeedForm(forms.ModelForm):
 
@@ -45,3 +48,11 @@ class FeedForm(forms.ModelForm):
             post = cleaned_data.get('post')
             if not post:
                 raise forms.ValidationError('باید چیزی نوشته باشید')
+
+
+class ProfileEditForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ('bio','telegram_id','birth_date','picture')
+
+

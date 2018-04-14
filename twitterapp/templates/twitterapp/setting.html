@@ -1,26 +1,30 @@
 {% extends 'twitterapp/base.html' %}
 {% load widget_tweaks %}
 {% block content %}
- <div class="panel panel-default">
+    <div class="panel panel-default">
         <div class="panel-heading">
-            <h2 class="panel-title">تغییر رمز</h2>
+            <h2 class="panel-title">تنظیمات</h2>
 	    </div>
         <div class="panel-body">
             <center>
-                <form method="POST">
+                <form method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
                     <table>
                         <tr>
-                            <td>رمز قبلی</td>
-                            <td>{{ form.old_password }}</td>
+                            <td>بیوگرافی</td>
+                            <td>{{ form.bio|add_class:'form-control' }}</td>
                         </tr>
                         <tr>
-                            <td>رمز جدید</td>
-                            <td>{{ form.new_password1 }}</td>
+                            <td>تاریخ تولد</td>
+                            <td>{{ form.birth_date|add_class:'form-control' }}</td>
                         </tr>
                         <tr>
-                            <td>تایید رمز جدید</td>
-                            <td>{{ form.new_password2 }}</td>
+                            <td>آیدی تلگرام</td>
+                            <td>{{ form.telegram_id|add_class:'form-control' }}</td>
+                        </tr>
+                        <tr>
+                            <td>آواتار</td>
+                            <td>{{ form.picture|add_class:'form-control' }}</td>
                         </tr>
                         {% if form.errors %}
                             <tr>
@@ -35,10 +39,10 @@
                             </tr>
                         {% endif %}
                     </table>
-                    <input class="btn btn-primary" type="submit" value="ورود" />
+                    <input class="btn btn-primary" type="submit" value="ذخیره" />
                 </form>
             </center>
         </div>
     </div>
 {% endblock %}
-{% block title %}تغییر رمز{% endblock %}
+{% block title %}تنظیمات{% endblock %}

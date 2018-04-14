@@ -1,10 +1,39 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-
-</body>
-</html>
+{% extends 'twitterapp/base.html' %}
+{% block content %}
+       <div class="panel panel-default">
+        <div class="panel-heading">
+            <h2 class="panel-title">پروفایل</h2>
+	    </div>
+        <div class="panel-body">
+            <center>
+            <table>
+                {% if profile.picture %}
+                    <tr>
+                        <td><img src={{ profile.picture.url }}/></td>
+                    </tr>
+                    <tr>
+                        <td>بیو</td>
+                        <td>{{ profile.bio }}</td>
+                    </tr>
+                {% endif %}
+                <tr>
+                    <td>آیدی تلگرام</td>
+                    <td>{{ profile.telegram_id }}</td>
+                </tr>
+                <tr>
+                    <td>تاریخ تولد</td>
+                    <td>{{ profile.birth_date }}</td>
+                </tr>
+            </table>
+            {% if post %}
+                <h2>   10 پست اخیر</h2>
+                {% for p in post %}
+                    <li>{{ p.post }}</li>
+                {% endfor %}
+            {% else %}
+                هنوز پستی ارسال نکرده اید
+            {% endif %}
+            </center>
+        </div>
+    </div>
+{% endblock %}
